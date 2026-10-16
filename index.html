@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ECO-TEC | Gestión energética automatizada para colegios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg-grad:linear-gradient(160deg,#F5FBF7 0%,#E2F3E9 45%,#DAF0F2 100%);--bg:#EEF7F1;--surface:#FFFFFF;--ink:#0F2B2C;--muted:#425F61;--green:#1F7A4D;--cyan:#087F91;--line:#C6DDD2;--lamp:#F2B632;--on-accent:#FFFFFF;--glass:rgba(255,255,255,.55);--glass-line:rgba(255,255,255,.8);--shadow:0 10px 32px rgba(31,122,77,.14);--grad:linear-gradient(135deg,#1F7A4D,#087F91);--blob:.5;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root[data-theme="dark"]{--bg-grad:linear-gradient(160deg,#091617 0%,#0D2526 50%,#0A292D 100%);--bg:#0C1C1D;--surface:#122829;--ink:#E7F2EE;--muted:#9DB8B4;--green:#5CCB8C;--cyan:#4FD0E2;--line:#24403F;--on-accent:#0C1C1D;--glass:rgba(18,40,41,.5);--glass-line:rgba(255,255,255,.13);--shadow:0 10px 32px rgba(0,0,0,.4);--grad:linear-gradient(135deg,#5CCB8C,#4FD0E2);--blob:.28}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth;background:var(--bg)}
+*{box-sizing:border-box}
+body{margin:0;position:relative;overflow-x:hidden;min-height:100vh;background:var(--bg-grad);color:var(--ink);font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;font-size:17px;transition:color .3s}
+h1,h2,h3{font-family:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;line-height:1.1;margin:0}
+a{color:var(--cyan)}
+:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:var(--blob);z-index:-1;pointer-events:none}
+.b1{width:340px;height:340px;top:-90px;right:-90px;background:#2E9E63}
+.b2{width:380px;height:380px;top:560px;left:-140px;background:#0AA5B7}
+.b3{width:320px;height:320px;top:1500px;right:-100px;background:#2E9E63}
+.b4{width:360px;height:360px;top:2500px;left:-120px;background:#0AA5B7}
+.glass{background:var(--glass);-webkit-backdrop-filter:blur(16px) saturate(1.4);backdrop-filter:blur(16px) saturate(1.4);border:1.5px solid var(--glass-line);box-shadow:var(--shadow)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 20px}
+nav{display:flex;align-items:center;justify-content:space-between;gap:12px 18px;padding:12px 18px;margin-top:14px;border-radius:18px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font-family:"Bricolage Grotesque",sans-serif;font-weight:800;font-size:22px}
+nav ul{display:flex;gap:16px;list-style:none;margin:0;padding:0;flex-wrap:wrap;font-size:15px}
+nav ul a{color:var(--ink);text-decoration:none}
+nav ul a:hover{text-decoration:underline}
+.tog{background:var(--glass);color:var(--ink);border:1.5px solid var(--glass-line);padding:7px 14px;border-radius:999px;font-size:14px;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:36px;align-items:center;padding:44px 0 60px}
+.hero h1{font-size:clamp(36px,6vw,64px);font-weight:800;letter-spacing:-.02em;background:linear-gradient(120deg,var(--ink) 35%,var(--green) 120%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:.08em}
+.hero p{color:var(--muted);max-width:46ch;margin:18px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;padding:0;list-style:none}
+.chips li{border-radius:999px;padding:5px 14px;font-size:14px;background:var(--glass);border:1.5px solid var(--glass-line);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.demo{border-radius:24px;padding:16px}
+.demo svg{width:100%;height:auto;display:block;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(46,158,99,.10))}
+.demo-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}
+.status{font-size:15px;margin:0;color:var(--muted);min-height:3em;flex:1 1 180px}
+.status strong{color:var(--ink)}
+button{font:inherit;font-weight:600;cursor:pointer}
+#btn{background:var(--grad);color:var(--on-accent);border:0;border-radius:12px;padding:10px 18px;box-shadow:0 6px 18px rgba(8,127,145,.3)}
+button:hover{filter:brightness(1.08)}
+.glow{opacity:0;transition:opacity .4s}
+.on .glow{opacity:.5}
+.on .bulb{fill:var(--lamp)}
+.bulb{fill:var(--line);transition:fill .4s}
+.blades{transform-origin:230px 52px}
+.on .blades{animation:spin .6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.person{opacity:0;transition:opacity .3s}
+.here .person{opacity:1}
+@media (prefers-reduced-motion:reduce){.on .blades{animation:none}.glow,.bulb,.person,body{transition:none}html{scroll-behavior:auto}}
+section{padding:52px 0;border-top:1.5px solid var(--glass-line)}
+section>.wrap>h2{font-size:clamp(28px,4vw,40px);font-weight:700;margin-bottom:22px;letter-spacing:-.01em}
+.lead{max-width:62ch;color:var(--muted);margin:0 0 8px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px;counter-reset:s;padding:0;list-style:none}
+.steps li{border-radius:16px;padding:18px;counter-increment:s;border-top:4px solid var(--green)}
+.steps li:nth-child(2){border-top-color:var(--cyan)}
+.steps li:nth-child(3){border-top-color:var(--lamp)}
+.steps h3{font-size:22px;margin-bottom:6px}
+.steps h3::before{content:counter(s) ". "}
+.steps p{margin:0;color:var(--muted);font-size:16px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.two h3{font-size:22px;margin-bottom:10px}
+.two ul{margin:0;padding-left:20px;color:var(--muted)}
+.two li{margin-bottom:8px}
+.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;padding:0;list-style:none;margin:0}
+.team li{border-radius:16px;padding:16px 18px}
+.team b{display:block;font-family:"Bricolage Grotesque",sans-serif;font-size:19px}
+.team span{color:var(--muted);font-size:15px}
+.tl{list-style:none;margin:0;padding:0 0 0 22px;border-left:3px solid var(--line)}
+.tl li{position:relative;padding:0 0 22px 18px}
+.tl li::before{content:"";position:absolute;left:-31px;top:6px;width:14px;height:14px;border-radius:50%;background:var(--grad);box-shadow:0 0 0 4px var(--bg)}
+.tl b{font-family:"Bricolage Grotesque",sans-serif;font-size:19px}
+.tl time{display:block;color:var(--cyan);font-size:14px;font-weight:600}
+.tl p{margin:2px 0 0;color:var(--muted);font-size:16px}
+.ev{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.ev article{border-radius:16px;padding:18px}
+.ev h3{font-size:19px;margin-bottom:6px}
+.ev p{margin:0;color:var(--muted);font-size:15.5px}
+.ev .final{grid-column:1/-1;background:linear-gradient(135deg,rgba(46,158,99,.28),rgba(10,165,183,.24));border-color:var(--green)}
+footer{margin-top:20px;padding:26px 0 40px;color:var(--muted);font-size:15px;background:var(--glass);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-top:1.5px solid var(--glass-line)}
+@media (max-width:760px){.hero,.two,.steps{grid-template-columns:1fr}.hero{padding-top:20px}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="blob b4"></div>
+<div class="wrap">
+<nav class="glass">
+ <div class="brand">
+  <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><path d="M7 33C7 17 17 7 34 6c1 17-8 27-24 27z" fill="#2E9E63"/><path d="M10 31L26 15" stroke="#0AA5B7" stroke-width="2.4" stroke-linecap="round" fill="none"/><path d="M17 24h6v-5M21 28h8" stroke="#0AA5B7" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="24" cy="18" r="2" fill="#0AA5B7"/><circle cx="31" cy="28" r="2" fill="#0AA5B7"/></svg>
+  ECO-TEC
+ </div>
+ <ul>
+  <li><a href="#problema">Problema</a></li><li><a href="#solucion">Solución</a></li><li><a href="#equipo">Equipo</a></li><li><a href="#plan">Plan de trabajo</a></li><li><a href="#evidencias">Evidencias</a></li>
+ </ul>
+ <button class="tog" id="tog" type="button" aria-pressed="false">Modo oscuro</button>
+</nav>
+
+<header class="hero">
+ <div>
+  <h1>ECO-TEC apaga lo que nadie está usando.</h1>
+  <p>Un módulo de bajo costo con sensores y microcontrolador que enciende y apaga luces y abanicos de un salón según haya o no personas. Innovación inteligente para un futuro sostenible.</p>
+  <ul class="chips"><li>Hardware libre</li><li>Sensor PIR</li><li>Apagado a los 10 minutos</li><li>Valledupar, Cesar</li></ul>
+ </div>
+ <div class="demo glass" id="demo">
+  <svg viewBox="0 0 320 190" role="img" aria-label="Simulación de un aula con una lámpara y un abanico">
+   <rect x="0" y="0" width="320" height="190" rx="10" fill="none"/>
+   <line x1="10" y1="12" x2="310" y2="12" stroke="var(--line)" stroke-width="3"/>
+   <line x1="90" y1="12" x2="90" y2="48" stroke="var(--muted)" stroke-width="2"/>
+   <circle class="glow" cx="90" cy="62" r="52" fill="var(--lamp)"/>
+   <circle class="bulb" cx="90" cy="62" r="15" stroke="var(--muted)" stroke-width="2"/>
+   <line x1="230" y1="12" x2="230" y2="40" stroke="var(--muted)" stroke-width="2"/>
+   <g class="blades"><ellipse cx="230" cy="30" rx="34" ry="7" fill="var(--cyan)" transform="rotate(0 230 52)"/><ellipse cx="230" cy="52" rx="7" ry="34" fill="var(--green)"/></g>
+   <circle cx="230" cy="52" r="8" fill="var(--ink)"/>
+   <rect x="20" y="150" width="280" height="6" rx="3" fill="var(--line)"/>
+   <rect x="262" y="96" width="26" height="22" rx="4" fill="var(--surface)" stroke="var(--cyan)" stroke-width="2"/>
+   <circle cx="275" cy="107" r="5" fill="var(--cyan)"/>
+   <g class="person"><circle cx="160" cy="116" r="12" fill="var(--ink)"/><path d="M138 150c0-22 10-30 22-30s22 8 22 30z" fill="var(--ink)"/></g>
+  </svg>
+  <div class="demo-bar">
+   <p class="status" id="status" aria-live="polite"></p>
+   <button id="btn" type="button">Todos salen del aula</button>
+  </div>
+ </div>
+</header>
+</div>
+
+<section id="problema"><div class="wrap">
+ <h2>Luces y abanicos encendidos en salones vacíos</h2>
+ <p class="lead">En los colegios de Valledupar es común ver luces y abanicos prendidos sin nadie dentro, o con buena luz natural. Eso sube la factura de energía y gasta recursos que podrían ir a mejoras académicas, además de dañar el ambiente.</p>
+ <p class="lead">ECO-TEC es el prototipo que desarrollamos como aprendices de Sistemas Teleinformáticos del SENA para reducir ese desperdicio en el Colegio Pequeñín.</p>
+</div></section>
+
+<section id="solucion"><div class="wrap">
+ <h2>Cómo funciona</h2>
+ <p class="lead">Un módulo dentro de una caja acrílica, conectado al circuito de luces y abanicos del aula piloto.</p>
+ <ol class="steps">
+  <li class="glass"><h3>Detecta</h3><p>Un sensor de movimiento PIR identifica si hay personas. Un sensor de temperatura y luminosidad mide el ambiente del salón.</p></li>
+  <li class="glass"><h3>Decide</h3><p>El microcontrolador (tipo Arduino o ESP32) lee los sensores y aplica la lógica de control y el temporizador que programamos.</p></li>
+  <li class="glass"><h3>Actúa</h3><p>Los relés dan o cortan la corriente. Si pasan 10 minutos sin presencia, apaga luces y abanicos de forma autónoma.</p></li>
+ </ol>
+</div></section>
+
+<section id="objetivos"><div class="wrap">
+ <div class="two">
+  <div>
+   <h3>Objetivo general</h3>
+   <p class="lead">Desarrollar e implementar un prototipo de sistema automatizado de gestión energética con hardware libre y sensores para optimizar el consumo de electricidad en la institución educativa.</p>
+  </div>
+  <div>
+   <h3>Objetivos específicos</h3>
+   <ul>
+    <li>Diseñar el circuito y la arquitectura de sensores de presencia y temperatura.</li>
+    <li>Programar el microcontrolador para encender y apagar los equipos según el entorno.</li>
+    <li>Hacer pruebas de conectividad y calibración en el aula para medir el ahorro.</li>
+   </ul>
+  </div>
+ </div>
+</div></section>
+
+<section id="equipo"><div class="wrap">
+ <h2>Equipo</h2>
+ <ul class="team">
+  <li class="glass"><b>Valeria Martínez</b><span>Líder de proyecto y coordinación general</span></li>
+  <li class="glass"><b>Leonardo Guerra</b><span>Hardware y circuitos</span></li>
+  <li class="glass"><b>Jaime Rúa</b><span>Programación y lógica de sistemas</span></li>
+  <li class="glass"><b>Emily Torres</b><span>Pruebas y control de calidad</span></li>
+  <li class="glass"><b>Juan Pablo Montero</b><span>Documentación e identidad corporativa</span></li>
+ </ul>
+ <p class="lead" style="margin-top:18px">Instructor responsable: Robinson José Cobo Quintero. Programa Sistemas Teleinformáticos, grupo 3216483, Centro Biotecnológico del Caribe, SENA.</p>
+</div></section>
+
+<section id="plan"><div class="wrap">
+ <h2>Plan de trabajo</h2>
+ <ol class="tl">
+  <li><time>1 al 31 de mayo de 2026</time><b>Investigación y diseño</b><p>Requerimientos del sistema y planos eléctricos del aula.</p></li>
+  <li><time>1 al 30 de junio de 2026</time><b>Adquisición y ensamblaje</b><p>Compra de sensores, cables y microcontrolador; ensamblaje inicial en protoboard.</p></li>
+  <li><time>1 de julio al 15 de agosto de 2026</time><b>Desarrollo del software</b><p>Código de control, temporizadores y calibración de sensibilidad.</p></li>
+  <li><time>16 de agosto al 30 de septiembre de 2026</time><b>Pruebas de campo e instalación</b><p>Montaje del prototipo en el aula piloto con supervisión técnica.</p></li>
+  <li><time>1 al 31 de octubre de 2026</time><b>Evaluación y cierre</b><p>Medición del ahorro energético, informe final y sustentación.</p></li>
+ </ol>
+</div></section>
+
+<section id="evidencias"><div class="wrap">
+ <h2>Evidencias del proyecto</h2>
+ <div class="ev">
+  <article class="glass"><h3>Investigación y diseño</h3><p>Informe de requerimientos, planos del aula y diagrama del circuito.</p></article>
+  <article class="glass"><h3>Adquisición y ensamblaje</h3><p>Soportes de compra, fotografías del protoboard y video de los sensores.</p></article>
+  <article class="glass"><h3>Desarrollo del software</h3><p>Código fuente, capturas del entorno de programación y video de la lógica de apagado.</p></article>
+  <article class="glass"><h3>Pruebas de campo</h3><p>Fotografías y video del montaje en el aula, registro de calibración y listas de asistencia.</p></article>
+  <article class="glass"><h3>Evaluación y cierre</h3><p>Informe del ahorro energético y acta de sustentación.</p></article>
+  <article class="glass final"><h3>Producto final</h3><p>Prototipo ECO-TEC funcional en caja acrílica, instalado en el aula piloto del Colegio Pequeñín. Apaga luces y abanicos solo, tras 10 minutos sin presencia humana.</p></article>
+ </div>
+</div></section>
+
+<footer><div class="wrap">
+ ECO-TEC, proyecto SENATIC. Servicio Nacional de Aprendizaje SENA, Centro Biotecnológico del Caribe, articulación con la educación media. Valledupar, Cesar, 2026.
+</div></footer>
+
+<script>
+(function(){
+var root=document.documentElement,tb=document.getElementById('tog');
+function setTheme(m){root.setAttribute('data-theme',m);tb.textContent=m==='dark'?'Modo claro':'Modo oscuro';tb.setAttribute('aria-pressed',m==='dark'?'true':'false');try{localStorage.setItem('ecotec-theme',m);}catch(e){}}
+var saved=null;try{saved=localStorage.getItem('ecotec-theme');}catch(e){}
+setTheme(saved==='dark'?'dark':'light');
+tb.addEventListener('click',function(){setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark');});
+})();
+(function(){
+var demo=document.getElementById('demo'),btn=document.getElementById('btn'),st=document.getElementById('status');
+var here=true,mins=10,t=null;
+function draw(){
+ var on=here||mins>0;
+ demo.classList.toggle('on',on);demo.classList.toggle('here',here);
+ if(here){st.innerHTML='<strong>Hay personas en el aula.</strong> Luces y abanico encendidos.';btn.textContent='Todos salen del aula';}
+ else if(mins>0){st.innerHTML='<strong>Sin presencia.</strong> Apagado automático en '+mins+' min (tiempo simulado).';btn.textContent='Entra alguien';}
+ else{st.innerHTML='<strong>Aula vacía por 10 minutos.</strong> ECO-TEC apagó luces y abanico.';btn.textContent='Entra alguien';}
+}
+btn.addEventListener('click',function(){
+ here=!here;clearInterval(t);mins=10;
+ if(!here){t=setInterval(function(){mins--;if(mins<=0)clearInterval(t);draw();},700);}
+ draw();
+});
+draw();
+})();
+</script>
+</body>
+</html>
